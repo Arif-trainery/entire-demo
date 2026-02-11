@@ -113,6 +113,29 @@ const commands = {
     console.log();
   },
 
+  export() {
+    const format = args[0] || "json";
+    const tasks = load();
+    if (format === "csv") {
+      console.log("id,text,done,priority,tags,created,completed");
+      tasks.forEach((t) =>
+        console.log(
+          `${t.id},"${t.text}",${t.done},${t.priority || ""},"${(t.tags || []).join(";")}",${t.created},${t.completed || ""}`
+        )
+      );
+    } else if (format === "markdown" || format === "md") {
+      console.log("| ID | Task | Status | Priority | Tags |");
+      console.log("|---|---|---|---|---|");
+      tasks.forEach((t) =>
+        console.log(
+          `| ${t.id} | ${t.text} | ${t.done ? "Done" : "Pending"} | ${t.priority || "-"} | ${(t.tags || []).map((g) => "#" + g).join(" ") || "-"} |`
+        )
+      );
+    } else {
+      console.log(JSON.stringify(tasks, null, 2));
+    }
+  },
+
   stats() {
     const tasks = load();
     if (!tasks.length) return console.log("No tasks yet.");
@@ -146,6 +169,7 @@ const commands = {
     remove <id>                          Remove a task
     search <query>                       Search tasks by text or tag
     stats                                Show task statistics
+    export [json|csv|md]                 Export tasks in different formats
     help                                 Show this help
 `);
   },
