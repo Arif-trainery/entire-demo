@@ -1,0 +1,15 @@
+{
+  "name": "taskflow",
+  "version": "1.0.0",
+  "description": "A CLI task manager — built to demo Entire CLI session capture",
+  "main": "src/index.js",
+  "bin": {
+    "taskflow": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test src/**/*.test.js"
+  },
+  "keywords": ["cli", "todo", "tasks"],
+  "license": "MIT"
+}
